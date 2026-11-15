@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simplicable Index — featured articles from the A–Z sitemap</title>
+<meta name="description" content="An unofficial searchable index of featured article titles listed on Simplicable’s A–Z sitemap. All content belongs to Simplicable / John Spacey.">
+<style>
+
+:root {
+  --bg: #f3efe6;
+  --bg-2: #fbf8f1;
+  --ink: #241f1a;
+  --muted: #6e655a;
+  --faint: #9a9084;
+  --line: #e2d8c8;
+  --accent: #7a2e3a;
+  --accent-2: #3e5a4c;
+  --mark: #f6d889;
+  --mark-ink: #3a2a00;
+  --shadow: 0 1px 2px rgba(36,31,26,.06), 0 8px 24px rgba(36,31,26,.06);
+  --radius: 14px;
+  --sidebar: 300px;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+}
+html[data-theme="dark"] {
+  --bg: #1a1815;
+  --bg-2: #23201c;
+  --ink: #f0e9de;
+  --muted: #b0a89c;
+  --faint: #8a8276;
+  --line: #3a3530;
+  --accent: #e8b4bc;
+  --accent-2: #a9c4b4;
+  --mark: #7a5a16;
+  --mark-ink: #ffe9a8;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 28px rgba(0,0,0,.28);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+button, input { font: inherit; color: inherit; }
+a { color: var(--accent); }
+mark {
+  background: var(--mark);
+  color: var(--mark-ink);
+  padding: 0 .12em;
+  border-radius: 2px;
+}
+header.app {
+  position: sticky; top: 0; z-index: 20;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 12px 20px 14px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.toprow { display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.brand h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: .01em;
+  margin: 0;
+}
+.brand h1 em { font-style: italic; font-weight: 500; }
+.brand p { margin: 0; color: var(--muted); font-size: .8rem; }
+.navlink {
+  font-size: .85rem;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 8px 10px;
+  white-space: nowrap;
+  border-radius: 8px;
+}
+.navlink:hover { text-decoration: underline; background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.iconbtn {
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.iconbtn:hover { border-color: var(--accent); }
+.searchwrap { position: relative; }
+.searchwrap input {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  border-radius: 999px;
+  padding: 12px 44px 12px 44px;
+  outline: none;
+  box-shadow: var(--shadow);
+}
+.searchwrap input:focus { border-color: var(--accent); }
+.search-icon, .search-clear {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  color: var(--muted);
+  background: none; border: 0; padding: 0;
+}
+.search-icon { left: 16px; pointer-events: none; }
+.search-clear { right: 14px; cursor: pointer; display: none; }
+.searchwrap.has-query .search-clear { display: block; }
+
+.layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: var(--sidebar) 1fr;
+  gap: 0;
+  min-height: calc(100vh - 120px);
+}
+.sidebar {
+  border-right: 1px solid var(--line);
+  padding: 16px 12px 40px 20px;
+}
+.sidebar h2 {
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--faint);
+  margin: 8px 8px 10px;
+}
+.tree { font-size: .86rem; }
+.tree details { margin-bottom: 2px; }
+.tree summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 5px 8px;
+  border-radius: 8px;
+  color: var(--ink);
+  font-weight: 600;
+}
+.tree summary::-webkit-details-marker { display: none; }
+.tree summary::before { content: "▸ "; color: var(--faint); font-weight: 400; }
+.tree details[open] > summary::before { content: "▾ "; }
+.tree summary:hover { background: color-mix(in srgb, var(--accent) 8%, transparent); }
+.tree .cats { margin: 0 0 6px 10px; padding: 0; list-style: none; }
+.tree .cats button {
+  display: block; width: 100%;
+  text-align: left;
+  background: none; border: 0;
+  padding: 3px 8px 3px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--ink);
+  line-height: 1.35;
+  font-family: var(--sans);
+}
+.tree .cats button:hover, .tree .cats button.active {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.tree .num { color: var(--faint); font-variant-numeric: tabular-nums; margin-right: .35em; }
+
+main { padding: 20px 24px 80px; min-width: 0; }
+.status { color: var(--muted); font-size: .92rem; margin: 0 0 16px; }
+.status strong { color: var(--ink); }
+.card {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px 14px;
+  margin: 0 0 14px;
+  box-shadow: var(--shadow);
+}
+.card-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.card-head h3 {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  margin: 0;
+  font-weight: 600;
+}
+.card-head h3 a { color: inherit; text-decoration: none; }
+.card-head h3 a:hover { color: var(--accent); }
+.levin { color: var(--muted); font-size: .9rem; font-weight: 500; }
+.crumb { color: var(--muted); font-size: .8rem; margin: 4px 0 10px; }
+.crumb a { color: var(--accent); text-decoration: none; }
+.crumb a:hover { text-decoration: underline; }
+.section-label {
+  display: block;
+  font-size: .68rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent-2);
+  margin: 12px 0 6px;
+}
+.members { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; }
+.member {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg));
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 2px 8px 2px 10px;
+  font-size: .9rem;
+}
+.member button {
+  background: none; border: 0; padding: 0; cursor: pointer;
+  font-family: var(--serif);
+  font-size: 1rem;
+}
+.member button:hover { color: var(--accent); }
+.roget {
+  font-size: .68rem;
+  color: var(--accent);
+  text-decoration: none;
+  opacity: .85;
+}
+.roget:hover { text-decoration: underline; opacity: 1; }
+.roles { margin: 0 0 8px; padding: 0; list-style: none; }
+.roles li { margin: 0 0 3px; font-size: .95rem; }
+.roles .role { font-weight: 600; }
+.roles .restr { color: var(--muted); font-size: .85rem; }
+.inherited { color: var(--faint); font-size: .75rem; margin-left: .4em; }
+.frame {
+  border-top: 1px dashed var(--line);
+  padding: 8px 0 6px;
+}
+.frame .primary {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .92rem;
+}
+.frame .secondary { color: var(--muted); font-size: .85rem; margin-left: .4em; }
+.frame .ex {
+  font-family: var(--serif);
+  font-style: italic;
+  margin: 4px 0;
+  font-size: 1.05rem;
+}
+.frame .syn, .frame .sem { color: var(--muted); font-size: .82rem; margin: 2px 0 0; }
+.frame .syn code, .frame .sem code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .8rem;
+  color: var(--ink);
+}
+.empty { padding: 48px 12px; text-align: center; color: var(--muted); }
+.empty h2 { font-family: var(--serif); color: var(--ink); font-weight: 500; margin: 0 0 8px; }
+.empty button, .hint {
+  margin: 0 6px 6px 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  cursor: pointer;
+}
+.more {
+  display: inline-block;
+  margin: 8px 0 0;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.loading { padding: 60px 20px; text-align: center; color: var(--muted); }
+.error { padding: 40px 20px; color: #9b1c1c; }
+.burger { display: none; }
+.backdrop { display: none; }
+footer.note {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 8px 24px 28px;
+  color: var(--faint);
+  font-size: .75rem;
+}
+footer.note details { margin-top: 8px; }
+footer.note summary { cursor: pointer; color: var(--muted); }
+footer.note pre {
+  white-space: pre-wrap;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--ink);
+  font-size: .72rem;
+  line-height: 1.45;
+}
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar {
+    display: none;
+    position: fixed; inset: 0 auto 0 0;
+    width: min(88vw, 340px);
+    background: var(--bg);
+    z-index: 30;
+    overflow: auto;
+    box-shadow: var(--shadow);
+  }
+  .sidebar.open { display: block; }
+  .backdrop.open {
+    display: block;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.4);
+    z-index: 25;
+  }
+  .burger { display: inline-flex; }
+  main { padding: 16px 16px 80px; }
+  .navlink { padding: 8px 6px; font-size: .8rem; }
+}
+
+.navlinks { display: flex; align-items: center; flex-wrap: wrap; gap: 0; }
+.badge {
+  display: inline-block;
+  font-size: .68rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 1px 8px;
+  white-space: nowrap;
+}
+.badge.search { color: var(--muted); }
+.blurb { margin: 0 0 10px; color: var(--muted); }
+.artlist { margin: 0; padding: 0; list-style: none; }
+.artlist li { margin: 0 0 6px; }
+.artlist a { color: var(--accent); text-decoration: none; }
+.artlist a:hover { text-decoration: underline; }
+.search-hint { color: var(--faint); font-size: .78rem; margin: 2px 0 0; }
+.welcome p { margin: 0 0 10px; color: var(--muted); max-width: 42em; }
+.welcome a { color: var(--accent); }
+.topic-count { color: var(--faint); font-size: .78rem; margin-left: .35em; }
+.tree-section { margin: 16px 0 6px 8px; font-size: .72rem; text-transform: uppercase; letter-spacing: .12em; color: var(--faint); }
+.tree button.topic {
+  display: block; width: 100%;
+  text-align: left;
+  background: none; border: 0;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--ink);
+  line-height: 1.35;
+  font-family: var(--sans);
+  font-size: .86rem;
+}
+.tree button.topic:hover, .tree button.topic.active {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+@media (max-width: 860px) {
+  .navlinks { justify-content: flex-end; }
+}
+
+</style>
+</head>
+<body>
+<header class="app">
+  <div class="header-inner">
+    <div class="toprow">
+      <button class="iconbtn burger" type="button" id="btnBrowse" aria-label="Browse topics" title="Browse">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <div class="brand">
+        <h1>Simplicable <em>Index</em></h1>
+        <p>Unofficial index of featured articles on the A–Z sitemap</p>
+      </div>
+      <nav class="navlinks">
+        <a class="navlink" href="https://raammsathish003-lang.github.io/roget-1911/">Roget’s 1911</a>
+        <a class="navlink" href="https://raammsathish003-lang.github.io/levin-verb-classes/">Verb classes</a>
+      </nav>
+      <button class="iconbtn" type="button" id="btnTheme" aria-label="Toggle light and dark mode" title="Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+    <div class="searchwrap" id="searchWrap">
+      <span class="search-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+      </span>
+      <input id="q" type="search" placeholder="Search a title or topic, such as risk, thinking, color…" autocomplete="off" spellcheck="false" autofocus>
+      <button type="button" class="search-clear" id="btnClear" aria-label="Clear search">✕</button>
+    </div>
+  </div>
+</header>
+
+<div class="backdrop" id="backdrop"></div>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <h2>Browse by topic</h2>
+    <nav class="tree" id="tree"></nav>
+  </aside>
+  <main>
+    <div id="status" class="status"></div>
+    <div id="results"></div>
+  </main>
+</div>
+<footer class="note">
+  This is an unofficial index of the
+  <a href="https://simplicable.com/new/top">Simplicable A–Z sitemap</a> (direct link).
+  It covers only the featured article titles listed on that page, not the full site.
+  All content belongs to Simplicable / John Spacey.
+  The sitemap page did not expose article URLs in the copy used to build this index, so title and topic links use a Google <code>site:simplicable.com</code> search rather than opening the article directly. Search links are labelled as such.
+  Source attribution on the sitemap: John Spacey, updated on March 09, 2026.
+</footer>
+
+<script>
+const DATA = {"source":"https://simplicable.com/new/top","sourceLabel":"Simplicable A–Z sitemap","fetched":"2026-11-15","attribution":"John Spacey, updated on March 09, 2026","linkMode":"search","searchBase":"https://www.google.com/search?q=","topics":[{"id":"behavior","name":"Behavior","group":"az","blurb":"A list of human behaviors.","articles":["68-types-of-behavior","160-examples-of-actions"]},{"id":"branding","name":"Branding","group":"az","blurb":"","articles":[]},{"id":"business","name":"Business","group":"az","blurb":"A list of common business models.","articles":["50-types-of-business"]},{"id":"business-analysis","name":"Business Analysis","group":"az","blurb":"","articles":[]},{"id":"business-models","name":"Business Models","group":"az","blurb":"","articles":[]},{"id":"cities","name":"Cities","group":"az","blurb":"","articles":[]},{"id":"color-theory","name":"Color Theory","group":"az","blurb":"An overview of color theory.","articles":[]},{"id":"colors","name":"Colors","group":"az","blurb":"A large collection of color palettes.","articles":["250-types-of-color","120-types-of-black-color","270-types-of-blue-color"]},{"id":"communication","name":"Communication","group":"az","blurb":"A list of communication techniques.","articles":[]},{"id":"computing","name":"Computing","group":"az","blurb":"Examples of computing in everyday life.","articles":["140-examples-of-computing","17-examples-of-computer-literacy"]},{"id":"creativity","name":"Creativity","group":"az","blurb":"Examples of the creative process.","articles":[]},{"id":"culture","name":"Culture","group":"az","blurb":"An overview of culture.","articles":[]},{"id":"customer-experience","name":"Customer Experience","group":"az","blurb":"","articles":[]},{"id":"decision-making","name":"Decision Making","group":"az","blurb":"A list of decision making techniques.","articles":["50-steps-in-a-decision-making-process"]},{"id":"design","name":"Design","group":"az","blurb":"A comprehensive guide to design.","articles":[]},{"id":"design-thinking","name":"Design Thinking","group":"az","blurb":"","articles":[]},{"id":"economics","name":"Economics","group":"az","blurb":"Everyday examples of economics.","articles":[]},{"id":"education","name":"Education","group":"az","blurb":"A list of common types of education.","articles":["76-examples-of-the-education-experience"]},{"id":"governance","name":"Governance","group":"az","blurb":"The definition of governance with examples.","articles":[]},{"id":"government","name":"Government","group":"az","blurb":"The common types of government explained.","articles":[]},{"id":"history","name":"History","group":"az","blurb":"","articles":[]},{"id":"humans","name":"Humans","group":"az","blurb":"The common characteristics of humans.","articles":[]},{"id":"industries","name":"Industries","group":"az","blurb":"A list of industries.","articles":[]},{"id":"influencing","name":"Influencing","group":"az","blurb":"","articles":[]},{"id":"information-technology","name":"Information Technology","group":"az","blurb":"A list of common information technologies.","articles":["92-examples-of-information-technology","77-types-of-information-technology"]},{"id":"infrastructure","name":"Infrastructure","group":"az","blurb":"An overview of infrastructure with examples.","articles":["210-types-of-infrastructure","25-examples-of-business-infrastructure","14-examples-of-digital-infrastructure"]},{"id":"life","name":"Life","group":"az","blurb":"An overview of life with examples.","articles":["20-examples-of-life"]},{"id":"management","name":"Management","group":"az","blurb":"A guide to management techniques.","articles":["what-is-administration-(15-key-points)"]},{"id":"marketing","name":"Marketing","group":"az","blurb":"A list of key marketing strategies.","articles":[]},{"id":"materials","name":"Materials","group":"az","blurb":"A list of common types of materials.","articles":[]},{"id":"motivation","name":"Motivation","group":"az","blurb":"","articles":[]},{"id":"nature","name":"Nature","group":"az","blurb":"","articles":[]},{"id":"organizational-culture","name":"Organizational Culture","group":"az","blurb":"","articles":[]},{"id":"philosophy","name":"Philosophy","group":"az","blurb":"An overview of philosophy with examples.","articles":["19-examples-of-philosophy","13-examples-of-altruism","4-types-of-angst"]},{"id":"problem-solving","name":"Problem Solving","group":"az","blurb":"An overview of problem solving with examples.","articles":[]},{"id":"productivity","name":"Productivity","group":"az","blurb":"The basics of productivity.","articles":["98-examples-of-a-capability"]},{"id":"quality","name":"Quality","group":"az","blurb":"An overview of low quality with examples.","articles":["list-of-230-quality-factors","82-examples-of-quality","21-examples-of-fit-for-purpose"]},{"id":"risk","name":"Risk","group":"az","blurb":"An extensive list of risks and risk management techniques.","articles":["108-types-of-risk","53-types-of-risk"]},{"id":"sales","name":"Sales","group":"az","blurb":"","articles":[]},{"id":"science","name":"Science","group":"az","blurb":"A list of sciences.","articles":["50-types-of-science","50-types-of-applied-sciences"]},{"id":"small-business","name":"Small Business","group":"az","blurb":"An overview of what small businesses do.","articles":[]},{"id":"society","name":"Society","group":"az","blurb":"The definition of society with examples.","articles":["26-characteristics-of-civilization"]},{"id":"storytelling","name":"Storytelling","group":"az","blurb":"Examples of storytelling techniques.","articles":[]},{"id":"strategy","name":"Strategy","group":"az","blurb":"A reasonably comprehensive guide to strategy.","articles":[]},{"id":"sustainability","name":"Sustainability","group":"az","blurb":"","articles":[]},{"id":"talent","name":"Talent","group":"az","blurb":"A list of abilities that are commonly viewed as a talent as opposed to a commodity skill.","articles":["105-types-of-talent","35-examples-of-ability"]},{"id":"technology","name":"Technology","group":"az","blurb":"Examples of how technology disrupted societies, economies, industries and culture.","articles":[]},{"id":"thinking","name":"Thinking","group":"az","blurb":"An overview of thinking with examples.","articles":["62-types-of-thinking","12-examples-of-abstraction"]},{"id":"architecture","name":"Architecture","group":"extra","blurb":"An overview of architecture with examples.","articles":[]},{"id":"information","name":"Information","group":"extra","blurb":"The characteristics of information with examples.","articles":[]},{"id":"world","name":"World","group":"extra","blurb":"An overview of the world with examples.","articles":["24-examples-of-the-world","150-things-in-this-world"]},{"id":"career","name":"Career","group":"extra","blurb":"A guide to planning, developing and changing careers.","articles":[]},{"id":"customer-service","name":"Customer Service","group":"extra","blurb":"The practice of managing interactions with customers.","articles":["5-examples-of-customer-is-always-right"]},{"id":"descriptive-words","name":"Descriptive Words","group":"extra","blurb":"An a-z list of descriptive words.","articles":["480-descriptive-words"]},{"id":"knowledge","name":"Knowledge","group":"extra","blurb":"A list of things that are knowledge.","articles":["disinformation-vs-anti-information"]}],"articles":[{"id":"50-types-of-business","title":"50 Types Of Business","topic":"business"},{"id":"108-types-of-risk","title":"108 Types of Risk","topic":"risk"},{"id":"53-types-of-risk","title":"53 Types of Risk","topic":"risk"},{"id":"what-is-administration-(15-key-points)","title":"What is Administration? (15 Key Points)","topic":"management"},{"id":"50-steps-in-a-decision-making-process","title":"50 Steps in a Decision Making Process","topic":"decision-making"},{"id":"92-examples-of-information-technology","title":"92 Examples of Information Technology","topic":"information-technology"},{"id":"77-types-of-information-technology","title":"77 Types of Information Technology","topic":"information-technology"},{"id":"210-types-of-infrastructure","title":"210 Types of Infrastructure","topic":"infrastructure"},{"id":"25-examples-of-business-infrastructure","title":"25 Examples of Business Infrastructure","topic":"infrastructure"},{"id":"14-examples-of-digital-infrastructure","title":"14 Examples of Digital Infrastructure","topic":"infrastructure"},{"id":"20-examples-of-life","title":"20 Examples of Life","topic":"life"},{"id":"19-examples-of-philosophy","title":"19 Examples of Philosophy","topic":"philosophy"},{"id":"13-examples-of-altruism","title":"13 Examples of Altruism","topic":"philosophy"},{"id":"4-types-of-angst","title":"4 Types of Angst","topic":"philosophy"},{"id":"list-of-230-quality-factors","title":"List of 230 Quality Factors","topic":"quality"},{"id":"82-examples-of-quality","title":"82 Examples of Quality","topic":"quality"},{"id":"21-examples-of-fit-for-purpose","title":"21 Examples of Fit For Purpose","topic":"quality"},{"id":"50-types-of-science","title":"50 Types of Science","topic":"science"},{"id":"50-types-of-applied-sciences","title":"50 Types of Applied Sciences","topic":"science"},{"id":"26-characteristics-of-civilization","title":"26 Characteristics of Civilization","topic":"society"},{"id":"105-types-of-talent","title":"105 Types of Talent","topic":"talent"},{"id":"35-examples-of-ability","title":"35 Examples of Ability","topic":"talent"},{"id":"62-types-of-thinking","title":"62 Types of Thinking","topic":"thinking"},{"id":"12-examples-of-abstraction","title":"12 Examples of Abstraction","topic":"thinking"},{"id":"24-examples-of-the-world","title":"24 Examples of the World","topic":"world"},{"id":"150-things-in-this-world","title":"150 Things In This World","topic":"world"},{"id":"68-types-of-behavior","title":"68 Types of Behavior","topic":"behavior"},{"id":"160-examples-of-actions","title":"160 Examples of Actions","topic":"behavior"},{"id":"250-types-of-color","title":"250 Types of Color","topic":"colors"},{"id":"120-types-of-black-color","title":"120 Types of Black Color","topic":"colors"},{"id":"270-types-of-blue-color","title":"270 Types of Blue Color","topic":"colors"},{"id":"140-examples-of-computing","title":"140 Examples of Computing","topic":"computing"},{"id":"17-examples-of-computer-literacy","title":"17 Examples of Computer Literacy","topic":"computing"},{"id":"5-examples-of-customer-is-always-right","title":"5 Examples of Customer Is Always Right","topic":"customer-service"},{"id":"480-descriptive-words","title":"480 Descriptive Words","topic":"descriptive-words"},{"id":"76-examples-of-the-education-experience","title":"76 Examples of the Education Experience","topic":"education"},{"id":"disinformation-vs-anti-information","title":"Disinformation vs Anti-Information","topic":"knowledge"},{"id":"98-examples-of-a-capability","title":"98 Examples of a Capability","topic":"productivity"}]};
+
+const $ = (id) => document.getElementById(id);
+const resultsEl = $("results");
+const statusEl = $("status");
+const qEl = $("q");
+const wrapEl = $("searchWrap");
+const treeEl = $("tree");
+const sidebarEl = $("sidebar");
+const backdropEl = $("backdrop");
+
+const topics = DATA.topics;
+const articles = DATA.articles;
+const topicById = Object.fromEntries(topics.map((t) => [t.id, t]));
+const articleById = Object.fromEntries(articles.map((a) => [a.id, a]));
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+function highlight(text, q) {
+  if (!q) return esc(text);
+  const re = new RegExp("(?<![A-Za-z])" + q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(?![A-Za-z])", "gi");
+  let html = "", last = 0, s = String(text), m;
+  re.lastIndex = 0;
+  while ((m = re.exec(s))) {
+    html += esc(s.slice(last, m.index)) + "<mark>" + esc(m[0]) + "</mark>";
+    last = m.index + m[0].length;
+    if (m[0].length === 0) re.lastIndex++;
+  }
+  return html + esc(s.slice(last));
+}
+function searchUrl(title) {
+  return DATA.searchBase + encodeURIComponent("site:simplicable.com " + title);
+}
+function wordRe(q) {
+  return new RegExp("(?:^|[^A-Za-z0-9])" + q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(?:[^A-Za-z0-9]|$)", "i");
+}
+function scoreTitle(title, q) {
+  const t = title.toLowerCase();
+  const qq = q.toLowerCase();
+  if (t === qq) return 100;
+  if (wordRe(q).test(title)) return 80;
+  if (t.startsWith(qq)) return 60;
+  if (t.includes(qq)) return 40;
+  return 0;
+}
+function scoreTopic(name, q) {
+  const t = name.toLowerCase();
+  const qq = q.toLowerCase();
+  if (t === qq) return 90;
+  if (wordRe(q).test(name)) return 70;
+  if (t.startsWith(qq)) return 50;
+  if (t.includes(qq)) return 30;
+  return 0;
+}
+
+function search(q) {
+  q = (q || "").trim();
+  if (!q) return { type: "empty", articles: [], topics: [] };
+  const arts = [];
+  for (const a of articles) {
+    const s = scoreTitle(a.title, q);
+    if (s) arts.push({ a, s });
+  }
+  arts.sort((x, y) => y.s - x.s || x.a.title.localeCompare(y.a.title));
+  const tops = [];
+  for (const t of topics) {
+    const s = scoreTopic(t.name, q);
+    if (s) tops.push({ t, s });
+  }
+  tops.sort((x, y) => y.s - x.s || x.t.name.localeCompare(y.t.name));
+  const type = arts.length || tops.length ? (arts.some((x) => x.s >= 80) || tops.some((x) => x.s >= 70) ? "exact" : "partial") : "none";
+  return { type, q, articles: arts, topics: tops };
+}
+
+function articleCard(a, q) {
+  const topic = topicById[a.topic];
+  return '<article class="card" data-kind="article" data-id="' + esc(a.id) + '">' +
+    '<div class="card-head"><h3><a href="' + esc(searchUrl(a.title)) + '" target="_blank" rel="noopener noreferrer">' +
+    highlight(a.title, q) + '</a></h3>' +
+    '<span class="badge search">Google site search</span></div>' +
+    '<div class="crumb">Topic: <a href="#t=' + encodeURIComponent(topic.id) + '">' + highlight(topic.name, q) + '</a></div>' +
+    '<p class="search-hint">Opens a Google search for <code>site:simplicable.com ' + esc(a.title) + '</code> — not a direct article URL.</p>' +
+    '</article>';
+}
+function topicCard(t, q, opts) {
+  opts = opts || {};
+  const arts = t.articles.map((id) => articleById[id]);
+  let body = t.blurb ? '<p class="blurb">' + esc(t.blurb) + '</p>' : '';
+  if (arts.length) {
+    body += '<span class="section-label">Featured on the sitemap</span><ul class="artlist">';
+    for (const a of arts) {
+      body += '<li><a href="' + esc(searchUrl(a.title)) + '" target="_blank" rel="noopener noreferrer">' +
+        highlight(a.title, q) + '</a> <span class="badge search">Google site search</span></li>';
+    }
+    body += '</ul>';
+  } else if (!opts.compact) {
+    body += '<p class="search-hint">The sitemap page did not list featured articles under this topic.</p>';
+  }
+  return '<article class="card" data-kind="topic" data-id="' + esc(t.id) + '">' +
+    '<div class="card-head"><h3><a href="' + esc(searchUrl(t.name)) + '" target="_blank" rel="noopener noreferrer">' +
+    highlight(t.name, q) + '</a></h3>' +
+    '<span class="badge search">Google site search</span></div>' +
+    '<div class="crumb">' + (t.group === "extra" ? "Additional sitemap section" : "A–Z topic") +
+    (arts.length ? " · " + arts.length + " featured article" + (arts.length === 1 ? "" : "s") : "") + "</div>" +
+    body + '</article>';
+}
+
+function welcome() {
+  const nArt = articles.length;
+  const nTop = topics.length;
+  const nWith = topics.filter((t) => t.articles.length).length;
+  statusEl.innerHTML = "An unofficial index of <strong>" + nArt + " featured articles</strong> across <strong>" + nTop + " topics</strong> listed on the sitemap.";
+  resultsEl.innerHTML = '<div class="card welcome">' +
+    "<p>This page indexes only the topic names, one-line section descriptions, and featured article titles from " +
+    '<a href="https://simplicable.com/new/top">simplicable.com/new/top</a> (direct link to the sitemap). ' +
+    "It does not copy article bodies. All content belongs to Simplicable / John Spacey.</p>" +
+    "<p>Article URLs were not present in the sitemap copy used here, so each title opens a <strong>Google site search</strong> for that title on simplicable.com, labelled on the card. " +
+    nWith + " topics list featured articles; the others appear in the sidebar with their sitemap description where one was given.</p>" +
+    "<p>Try a search or pick a topic at the left. Examples: " +
+    '<button type="button" class="hint" data-q="risk">risk</button>' +
+    '<button type="button" class="hint" data-q="thinking">thinking</button>' +
+    '<button type="button" class="hint" data-q="color">color</button></p></div>';
+}
+
+function renderSearch(q) {
+  const r = search(q);
+  if (r.type === "empty") { welcome(); setActiveTopic(null); return r; }
+  if (r.type === "none") {
+    statusEl.innerHTML = "No titles or topics matching <strong>" + esc(q) + "</strong> in this sitemap index.";
+    resultsEl.innerHTML = '<div class="empty"><h2>No matches</h2><p>This index only covers featured titles from the sitemap page.</p></div>';
+    setActiveTopic(null);
+    return r;
+  }
+  const nA = r.articles.length, nT = r.topics.length;
+  const parts = [];
+  if (nA) parts.push("<strong>" + nA + "</strong> article" + (nA === 1 ? "" : "s"));
+  if (nT) parts.push("<strong>" + nT + "</strong> topic" + (nT === 1 ? "" : "s"));
+  statusEl.innerHTML = parts.join(" and ") + " matching <strong>" + esc(q) + "</strong>" + (r.type === "partial" ? " (partial)" : "") + ".";
+  let html = "";
+  if (nA) {
+    html += '<span class="section-label">Article titles</span>';
+    for (const x of r.articles) html += articleCard(x.a, q);
+  }
+  if (nT) {
+    html += '<span class="section-label">Topics</span>';
+    for (const x of r.topics) html += topicCard(x.t, q, { compact: true });
+  }
+  resultsEl.innerHTML = html;
+  setActiveTopic(null);
+  return r;
+}
+
+function renderTopic(id) {
+  const t = topicById[id];
+  if (!t) { welcome(); return; }
+  const n = t.articles.length;
+  statusEl.innerHTML = "<strong>" + esc(t.name) + "</strong> · " + (n ? n + " featured article" + (n === 1 ? "" : "s") : "no featured articles listed on the sitemap");
+  resultsEl.innerHTML = topicCard(t, "");
+  setActiveTopic(id);
+  qEl.value = "";
+  wrapEl.classList.remove("has-query");
+}
+
+function setActiveTopic(id) {
+  treeEl.querySelectorAll("button.topic").forEach((b) => b.classList.toggle("active", b.dataset.id === id));
+}
+
+function buildTree() {
+  const az = topics.filter((t) => t.group === "az");
+  const ex = topics.filter((t) => t.group === "extra");
+  const item = (t) => {
+    const n = t.articles.length;
+    return '<button type="button" class="topic" data-id="' + esc(t.id) + '">' + esc(t.name) +
+      (n ? '<span class="topic-count">' + n + "</span>" : "") + "</button>";
+  };
+  treeEl.innerHTML = '<div class="tree-section" style="margin-top:0">A–Z</div>' + az.map(item).join("") +
+    '<div class="tree-section">More from the sitemap</div>' + ex.map(item).join("");
+}
+
+function setTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  try { localStorage.setItem("simplicable-index-theme", theme); } catch (e) {}
+}
+function initTheme() {
+  let t = null;
+  try { t = localStorage.getItem("simplicable-index-theme"); } catch (e) {}
+  if (t === "dark" || t === "light") setTheme(t);
+  else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) setTheme("dark");
+  else setTheme("light");
+}
+
+let debounceTimer = null;
+let applyingHash = false;
+
+function currentHash() {
+  const h = location.hash || "";
+  if (h.startsWith("#t=")) return { kind: "topic", id: decodeURIComponent(h.slice(3)) };
+  if (h.startsWith("#q=")) return { kind: "search", q: decodeURIComponent(h.slice(3).replace(/\+/g, " ")) };
+  return { kind: "home" };
+}
+function applyHash() {
+  applyingHash = true;
+  const st = currentHash();
+  if (st.kind === "topic") {
+    qEl.value = "";
+    wrapEl.classList.remove("has-query");
+    renderTopic(st.id);
+  } else if (st.kind === "search") {
+    qEl.value = st.q;
+    wrapEl.classList.toggle("has-query", !!st.q);
+    renderSearch(st.q);
+  } else {
+    qEl.value = "";
+    wrapEl.classList.remove("has-query");
+    welcome();
+    setActiveTopic(null);
+  }
+  applyingHash = false;
+}
+function pushHash(hash) {
+  if (applyingHash) return;
+  if (location.hash !== hash) history.pushState(null, "", hash || "#");
+}
+
+function onQueryInput() {
+  const q = qEl.value.trim();
+  wrapEl.classList.toggle("has-query", !!qEl.value);
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(() => {
+    if (!q) { pushHash(""); welcome(); setActiveTopic(null); return; }
+    pushHash("#q=" + encodeURIComponent(q));
+    renderSearch(q);
+  }, 180);
+}
+
+buildTree();
+initTheme();
+treeEl.addEventListener("click", (e) => {
+  const b = e.target.closest("button.topic");
+  if (!b) return;
+  closeBrowse();
+  pushHash("#t=" + encodeURIComponent(b.dataset.id));
+  renderTopic(b.dataset.id);
+});
+qEl.addEventListener("input", onQueryInput);
+qEl.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    clearTimeout(debounceTimer);
+    const q = qEl.value.trim();
+    if (!q) { pushHash(""); welcome(); return; }
+    pushHash("#q=" + encodeURIComponent(q));
+    renderSearch(q);
+  }
+});
+$("btnClear").addEventListener("click", () => {
+  qEl.value = "";
+  wrapEl.classList.remove("has-query");
+  pushHash("");
+  welcome();
+  setActiveTopic(null);
+  qEl.focus();
+});
+$("btnTheme").addEventListener("click", () => {
+  setTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
+});
+function openBrowse() { sidebarEl.classList.add("open"); backdropEl.classList.add("open"); }
+function closeBrowse() { sidebarEl.classList.remove("open"); backdropEl.classList.remove("open"); }
+$("btnBrowse").addEventListener("click", () => {
+  if (sidebarEl.classList.contains("open")) closeBrowse(); else openBrowse();
+});
+backdropEl.addEventListener("click", closeBrowse);
+resultsEl.addEventListener("click", (e) => {
+  const hint = e.target.closest("button.hint");
+  if (hint) {
+    qEl.value = hint.dataset.q;
+    wrapEl.classList.add("has-query");
+    pushHash("#q=" + encodeURIComponent(hint.dataset.q));
+    renderSearch(hint.dataset.q);
+  }
+});
+window.addEventListener("hashchange", applyHash);
+window.addEventListener("popstate", applyHash);
+applyHash();
+
+window.__SIMP__ = {
+  ready: true,
+  data: DATA,
+  search,
+  stats: {
+    topics: topics.length,
+    az: topics.filter((t) => t.group === "az").length,
+    extra: topics.filter((t) => t.group === "extra").length,
+    articles: articles.length,
+    withArticles: topics.filter((t) => t.articles.length).length,
+    linkMode: DATA.linkMode
+  }
+};
+</script>
+</body>
+</html>
